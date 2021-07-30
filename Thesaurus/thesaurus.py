@@ -3,6 +3,7 @@
 
 import json
 import sys
+from pprint import pprint
 
 class Thesaurus:
 	def __init__(self, data):
@@ -11,11 +12,11 @@ class Thesaurus:
 	def translate(self, keyword):
 		if not isinstance(keyword, str):
 			raise ValueError("Keyword must be a word")
-		self.keyword = keyword.lower()
-		if not self.keyword in self._data:
-			raise KeyError(f"Can't find {self.keyword}")
+		# self.keyword = keyword
+		if not keyword in self._data:
+			raise KeyError(f"Can't find {keyword}")
 
-		return self._data[self.keyword]
+		return self._data[keyword]
 
 
 with open("data.json", "r")as datafile:
@@ -27,7 +28,6 @@ for word in sys.argv[1:]:
 	print(f"\n{word}: ")
 	try:
 	    results = thesaurus.translate(word)
-	    for result in results:
-		    print(f"\t{result}")
+	    pprint(results)
 	except:
 		pass
